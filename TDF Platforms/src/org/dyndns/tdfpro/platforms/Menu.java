@@ -13,16 +13,37 @@ public class Menu extends BasicGameState {
     private ArrayList<Component> comps = new ArrayList<Component>();
 
     @Override
-    public void init(GameContainer container, StateBasedGame game) throws SlickException {
-        comps.add(new Button(100, 100, 100, 100, "start", Color.green, Color.black, new Action() {
+    public void init(GameContainer c, StateBasedGame g) throws SlickException {
+        comps.add(new Button((c.getWidth() - 140) / 2, 400, 140, 40, "Start", Color.green,
+                Color.black, new Action() {
 
-            @Override
-            public void act(GameContainer c, StateBasedGame s) {
-                s.enterState(Launcher.GAME);
+                    @Override
+                    public void act(GameContainer c, StateBasedGame s) {
+                        s.enterState(Launcher.LEVELS);
 
-            }
+                    }
 
-        }));
+                }));
+        comps.add(new Button((c.getWidth() - 140) / 2, 460, 140, 40, "Options", Color.yellow,
+                Color.black, new Action() {
+
+                    @Override
+                    public void act(GameContainer c, StateBasedGame s) {
+                        // s.enterState(Launcher.GAME);
+
+                    }
+
+                }));
+        comps.add(new Button((c.getWidth() - 140) / 2, 520, 140, 40, "Exit", Color.red,
+                Color.black, new Action() {
+
+                    @Override
+                    public void act(GameContainer c, StateBasedGame s) {
+                        c.exit();
+
+                    }
+
+                }));
 
     }
 
@@ -110,7 +131,7 @@ class Button implements Component {
         g.setColor(fgCol);
 
         // g.draw(new Circle(200, 200, 10));
-        g.drawRoundRect(box.getX(), box.getY(), box.getWidth(), box.getHeight(), 10);
+        g.drawRect(box.getX(), box.getY(), box.getWidth(), box.getHeight());
 
         if (halftextwidth == -1) {
             Font f = g.getFont();
@@ -124,6 +145,9 @@ class Button implements Component {
     @Override
     public void update(GameContainer c, StateBasedGame s, int delta) {
         Input in = c.getInput();
+        if (in.isKeyDown(Input.KEY_ESCAPE)) {
+            c.exit();
+        }
         if (in.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)
                 && box.contains(in.getMouseX(), in.getMouseY())) {
             a.act(c, s);

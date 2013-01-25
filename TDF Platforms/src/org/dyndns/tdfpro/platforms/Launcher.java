@@ -9,6 +9,7 @@ public class Launcher extends StateBasedGame {
 
     public static final int GAME = 1;
     public static final int MENU = 0;
+    public static final int LEVELS = 2;
 
     public static void main(String[] args) {
         try {
@@ -31,7 +32,7 @@ public class Launcher extends StateBasedGame {
     @Override
     public void initStatesList(GameContainer c) throws SlickException {
         addState(new Menu());
-        addState(new Game());
+        addState(new LevelPicker());
     }
 
 }

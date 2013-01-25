@@ -15,11 +15,9 @@ public class Map implements Entity, GameConstants {
     private int width;
     private int height;
 
-    // public static final float TILESIZE = 32f;
-    // public static final Vec2 tilesize_ = new Vec2(tilesize, tilesize);
     private Vec2 spawn;
 
-    public Map(String ref) throws SlickException {
+    public Map(String ref, Game game) throws SlickException {
         tiled = new TiledMap(ref);
         width = tiled.getWidth();
         height = tiled.getHeight();
@@ -33,12 +31,26 @@ public class Map implements Entity, GameConstants {
         }
         // System.out.println(tiled.getObjectGroupCount());
         for (int gid = 0; gid < tiled.getObjectGroupCount(); gid++) {
+            // System.out.println(tiled.getObjectCount(gid));
             for (int oid = 0; oid < tiled.getObjectCount(gid); oid++) {
-                String type = tiled.getObjectType(gid, oid);
-                if (type.equals("spawn")) {
+                String type = tiled.getObjectProperty(gid, oid, "type", "");
+                switch (type) {
+                case "spawn":
                     int x = tiled.getObjectX(gid, oid);
                     int y = tiled.getObjectY(gid, oid);
                     spawn = new Vec2(x, y);
+                    break;
+                case "message":
+                    Rectangle bounds = new Rectangle(tiled.getObjectX(gid, oid), tiled.getObjectY(
+                            gid, oid), tiled.getObjectWidth(gid, oid), tiled.getObjectHeight(gid,
+                            oid));
+                    String msg = tiled.getObjectProperty(gid, oid, "msg", "");
+                    // System.out.println(msg);
+                    game.addUIElement(new MessageArea(bounds, msg));
+                    break;
+                default:
+                    System.out.println("Unknown object: " + tiled.getObjectName(gid, oid));
+                    break;
                 }
             }
         }

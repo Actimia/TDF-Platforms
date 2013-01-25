@@ -24,7 +24,21 @@ public class Player implements Entity {
 
     public Player(Vec2 spawn) {
         bounds = new Rectangle(spawn.x + 1, spawn.y + 3, 30, 29);
-        weapon = new Rifle(this);
+        weapon = new Weapon() { // no weapon for now
+            @Override
+            public void render(GameContainer c, StateBasedGame s, Graphics g, Game game) {
+            }
+
+            @Override
+            public boolean update(GameContainer c, StateBasedGame s, int delta, Game game) {
+                return true;
+            }
+
+            @Override
+            public Shape getBounds() {
+                return null;
+            }
+        };
         img = Game.getSprite("player");
     }
 
@@ -76,7 +90,11 @@ public class Player implements Entity {
                 airborne = true;
                 canjump = false;
                 yvelo = JUMP_IMPULSE;
-                Game.getSound("jump1").play(1f, 0.5f);
+                Sound jumpsound = Game.getSound("jump1");
+                if (jumpsound.playing()) {
+                    jumpsound.stop();
+                }
+                jumpsound.play(1f, 0.5f);
             }
             float grav = map.getGravity(bounds.getCenterX(), bounds.getMaxY());
             float terminalspeed = tile.terminalSpeed();
@@ -207,23 +225,23 @@ public class Player implements Entity {
         return true;
     }
 
-    private Vec2 botLeft() {
+    public Vec2 botLeft() {
         return new Vec2(bounds.getX(), bounds.getY() + bounds.getHeight());
     }
 
-    private Vec2 botRight() {
+    public Vec2 botRight() {
         return new Vec2(bounds.getX() + bounds.getWidth(), bounds.getY() + bounds.getHeight());
     }
 
-    private Vec2 topLeft() {
+    public Vec2 topLeft() {
         return new Vec2(bounds.getX(), bounds.getY());
     }
 
-    private Vec2 topRight() {
+    public Vec2 topRight() {
         return new Vec2(bounds.getX() + bounds.getWidth(), bounds.getY());
     }
 
-    private Vec2 center() {
+    public Vec2 center() {
         return new Vec2(bounds.getX() + bounds.getWidth() / 2, bounds.getY() + bounds.getHeight()
                 / 2);
     }

@@ -14,16 +14,23 @@ public class Game extends BasicGameState {
     private static final float PAN_LIMIT = 0.4f;
 
     private Map map;
+    private String mapref;
     private Player player;
     private int tilesize;
 
     private Timers timers = new Timers();
-    private Monsters monsters = new Monsters();
+    private Entities entities = new Entities();
+    private Entities uielements = new Entities();
 
     private Vec2 camera = Vec2.ZERO;
     private static HashMap<String, Image> sprites = new HashMap<String, Image>();
     private static HashMap<String, Sound> sounds = new HashMap<String, Sound>();
     private UnicodeFont font;
+
+    public Game(String mapref) {
+        this.mapref = mapref;
+        System.out.println(mapref);
+    }
 
     @SuppressWarnings("unchecked")
     @Override
@@ -35,7 +42,8 @@ public class Game extends BasicGameState {
         font.addAsciiGlyphs();
         font.getEffects().add(new ColorEffect());
         font.loadGlyphs();
-        map = new Map("res/maps/test1.tmx");
+
+        map = new Map(mapref, this);
         player = new Player(map.getSpawn());
         camera.x = Utils.clamp(player.getBounds().getCenterX() - c.getWidth() / 2, 0, map
                 .getBounds().getWidth());
@@ -52,13 +60,6 @@ public class Game extends BasicGameState {
         sprites.put("sword", spritesheet.getSubImage(0, 20, 119, 30));
         sprites.put("gun", spritesheet.getSubImage(31, 67, 63, 18));
         sprites.put("monster", spritesheet.getSubImage(0, 115, 26, 57));
-
-        // SpriteSheet tilesheet = new SpriteSheet("res/gfx/tiles.png", (int)
-        // Map.tilesize_.x,
-        // (int) Map.tilesize_.y);
-        // sprites.put("air", tilesheet.getSubImage(0, 0, 32, 32));
-        // sprites.put("ground", tilesheet.getSubImage(32, 0, 32, 32));
-        // sprites.put("ladder", tilesheet.getSubImage(64, 0, 32, 32));
     }
 
     /**
@@ -72,7 +73,7 @@ public class Game extends BasicGameState {
         for (File f : folder.listFiles()) {
             if (f.isFile()) {
                 String name = f.getName();
-                if (name.contains(".")) {
+                if (name.endsWith(".wav")) {
                     sounds.put(name.substring(0, name.lastIndexOf('.')), new Sound(f.getPath()));
                 }
             }
@@ -95,8 +96,10 @@ public class Game extends BasicGameState {
         g.setWorldClip(camera.x, camera.y, c.getWidth(), c.getHeight());
         map.render(c, s, g, this);
         player.render(c, s, g, this);
-        // g.resetTransform();
-        // font.drawString(100, 100, "lorem ipsur lathund flyger");
+        entities.render(c, s, g, this);
+        g.resetTransform();
+        g.setFont(font);
+        uielements.render(c, s, g, this);
 
     }
 
@@ -108,7 +111,13 @@ public class Game extends BasicGameState {
         }
         timers.update(delta);
         player.update(c, s, delta, this);
+        entities.update(c, s, delta, this);
+        uielements.update(c, s, delta, this);
 
+        panCamera(c, delta);
+    }
+
+    private void panCamera(GameContainer c, int delta) {
         // pan camera X-wise if player is outside the panlimit
         if ((player.getBounds().getCenterX() < camera.x + c.getWidth() * PAN_LIMIT && player
                 .getXVelo() < 0)
@@ -125,8 +134,12 @@ public class Game extends BasicGameState {
         timers.addTimer(timer);
     }
 
-    public void addMonster(Monster monster) {
-        monsters.add(monster);
+    public void addEntity(Entity ent) {
+        entities.add(ent);
+    }
+
+    public void addUIElement(Entity ent) {
+        uielements.add(ent);
     }
 
     @Override
