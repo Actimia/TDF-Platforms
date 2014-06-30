@@ -22,6 +22,13 @@ public class Player implements Entity {
     private Weapon weapon;
     private Image img;
 
+    private Keybind upBind = KeybindFactory.multi(Input.KEY_W, Input.KEY_UP);
+    private Keybind downBind = KeybindFactory.multi(Input.KEY_S, Input.KEY_DOWN);
+    private Keybind leftBind = KeybindFactory.multi(Input.KEY_A, Input.KEY_LEFT);
+    private Keybind rightBind = KeybindFactory.multi(Input.KEY_D, Input.KEY_RIGHT);
+
+    private Keybind jumpBind = KeybindFactory.simple(Input.KEY_SPACE);
+
     public Player(Vec2 spawn) {
         bounds = new Rectangle(spawn.x + 1, spawn.y + 3, 30, 29);
         weapon = new Weapon() { // no weapon for now
@@ -62,30 +69,31 @@ public class Player implements Entity {
         Input in = c.getInput();
         Map map = game.getMap();
         Tile tile = map.tileAt(bounds.getCenterX(), bounds.getMaxY());
+
         float xmove = 0;
         float ymove = 0;
 
         // resolve frame acceleration.
         // x axis
-        if (in.isKeyDown(Input.KEY_LEFT)) {
+        if (leftBind.check(in)) {
             xmove--;
         }
-        if (in.isKeyDown(Input.KEY_RIGHT)) {
+        if (rightBind.check(in)) {
             xmove++;
         }
         // y axis
         if (tile.getType() == TileType.LADDER) {
             yvelo = 0;
             airborne = false;
-            if (in.isKeyDown(Input.KEY_UP)) {
+            if (upBind.check(in)) {
                 ymove--;
             }
-            if (in.isKeyDown(Input.KEY_DOWN)) {
+            if (downBind.check(in)) {
                 ymove++;
             }
             ymove = ymove * tile.terminalSpeed() * delta / 1000f;
         } else {
-            if (in.isKeyDown(Input.KEY_SPACE) && !airborne && canjump) {
+            if (jumpBind.check(in) && !airborne && canjump) {
                 airborne = true;
                 canjump = false;
                 yvelo = JUMP_IMPULSE;
@@ -100,7 +108,7 @@ public class Player implements Entity {
             yvelo = Utils.clamp(yvelo + grav * delta / 1000f, -terminalspeed, terminalspeed);
             ymove = yvelo * delta / 1000f;
         }
-        boolean ignoreoneways = in.isKeyDown(Input.KEY_S);
+        boolean ignoreoneways = downBind.check(in);
         if (xmove == 0 && tile.driftToCenter()) { // if not moving, might drift
                                                   // to center
             float desiredX = tile.getBounds().getCenterX();
@@ -114,7 +122,7 @@ public class Player implements Entity {
         }
 
         // reset jump key
-        if (!in.isKeyDown(Input.KEY_SPACE) && !airborne) {
+        if (!jumpBind.check(in) && !airborne) {
             canjump = true;
         }
 
