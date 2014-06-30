@@ -23,13 +23,14 @@ public class Game extends BasicGameState {
     private Entities uielements = new Entities();
 
     private Vec2 camera = Vec2.ZERO;
-    private static HashMap<String, Image> sprites = new HashMap<String, Image>();
-    private static HashMap<String, Sound> sounds = new HashMap<String, Sound>();
+    private static HashMap<String, Image> sprites = new HashMap<>();
+    private static HashMap<String, Sound> sounds = new HashMap<>();
     private UnicodeFont font;
+
+    private Keybind exitBind = KeybindFactory.modified(Input.KEY_LSHIFT, Input.KEY_ESCAPE);
 
     public Game(String mapref) {
         this.mapref = mapref;
-        System.out.println(mapref);
     }
 
     @SuppressWarnings("unchecked")
@@ -44,7 +45,7 @@ public class Game extends BasicGameState {
         font.loadGlyphs();
 
         map = new Map(mapref, this);
-        player = new Player(map.getSpawn());
+        player = new Player(this, map.getSpawn());
         camera.x = Utils.clamp(player.getBounds().getCenterX() - c.getWidth() / 2, 0, map
                 .getBounds().getWidth());
 

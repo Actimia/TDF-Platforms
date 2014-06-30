@@ -29,7 +29,7 @@ public class Player implements Entity {
 
     private Keybind jumpBind = KeybindFactory.simple(Input.KEY_SPACE);
 
-    public Player(Vec2 spawn) {
+    public Player(Game g, Vec2 spawn) {
         bounds = new Rectangle(spawn.x + 1, spawn.y + 3, 30, 29);
         weapon = new Weapon() { // no weapon for now
             @Override
@@ -46,7 +46,7 @@ public class Player implements Entity {
                 return null;
             }
         };
-        img = Game.getSprite("player");
+        img = g.getSprite("player");
     }
 
     @Override

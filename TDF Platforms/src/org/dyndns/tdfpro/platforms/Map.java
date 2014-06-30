@@ -46,7 +46,7 @@ public class Map implements Entity, GameConstants {
                             oid));
                     String msg = tiled.getObjectProperty(gid, oid, "msg", "");
                     // System.out.println(msg);
-                    game.addUIElement(new MessageArea(bounds, msg));
+                    game.addUIElement(new MessageArea(game, bounds, msg));
                     break;
                 default:
                     System.out.println("Unknown object: " + tiled.getObjectName(gid, oid));

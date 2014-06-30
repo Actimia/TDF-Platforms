@@ -29,7 +29,7 @@ public class Rifle implements Weapon {
 
     private Player player;
 
-    public Rifle(Player player) {
+    public Rifle(Game g, Player player) {
         imgright = Game.getSprite("gun");
         imgleft = imgright.getFlippedCopy(false, true);
         bounds = new Rectangle(player.getBounds().getX() + offset.x, player.getBounds().getY()

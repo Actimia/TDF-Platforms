@@ -1,9 +1,6 @@
 package org.dyndns.tdfpro.platforms;
 
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Font;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
+import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
@@ -22,9 +19,12 @@ public class MessageArea implements Entity {
     private Rectangle upperborder;
     private Rectangle lowerborder;
 
-    public MessageArea(Rectangle bounds, String msg) {
+    private Sound msgsound;
+
+    public MessageArea(Game g, Rectangle bounds, String msg) {
         this.bounds = bounds;
         this.msg = msg.replaceAll("\n", System.lineSeparator());
+        msgsound = g.getSound("info1");
     }
 
     @Override
@@ -61,7 +61,7 @@ public class MessageArea implements Entity {
         boolean prev = show;
         show = bounds.contains(player.x, player.y);
         if (show && show != prev) { // if show was false before but is now true
-            Game.getSound("info1").play(1f, 0.3f);
+            msgsound.play(1f, 0.15f);
         }
         return true;
     }

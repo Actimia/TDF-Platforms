@@ -14,8 +14,8 @@ public class Monster implements Entity {
     private static final int MAXHEALTH = 100;
     private int health = MAXHEALTH;
 
-    public Monster(float x, float y) {
-        img = Game.getSprite("monster");
+    public Monster(Game g, float x, float y) {
+        img = g.getSprite("monster");
         bounds = new Rectangle(x, y, img.getWidth(), img.getHeight());
     }
 

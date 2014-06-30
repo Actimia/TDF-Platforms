@@ -23,8 +23,8 @@ public class Sword implements Weapon {
 
     private Player player;
 
-    public Sword(Player player) {
-        img = Game.getSprite("sword");
+    public Sword(Game g, Player player) {
+        img = g.getSprite("sword");
         bounds = new Rectangle(player.getBounds().getX() + offset.x, player.getBounds().getY()
                 + offset.y, 120, 31);
         curbounds = bounds;

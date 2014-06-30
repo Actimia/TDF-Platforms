@@ -26,8 +26,8 @@ class Bow implements Weapon {
         private float angle;
         private Shape bounds;
 
-        public Arrow(Player p, float a) {
-            img = Game.getSprite("arrow");
+        public Arrow(Game g, Player p, float a) {
+            img = g.getSprite("arrow");
         }
 
         @Override
@@ -49,9 +49,9 @@ class Bow implements Weapon {
 
     }
 
-    public Bow(Player p) {
+    public Bow(Game g, Player p) {
         player = p;
-        img = Game.getSprite("bow");
+        img = g.getSprite("bow");
         bounds = new Rectangle(p.getBounds().getX() + offset.x, p.getBounds().getY() + offset.y,
                 32, 64);
 
