@@ -6,6 +6,10 @@ public class Utils {
         return c < min ? min : c > max ? max : c;
     }
 
+    public static float sign(float a) {
+        return a > 0 ? (a < 0 ? -1 : 0) : 1;
+    }
+
     /**
      * 0 < f < 1
      * 
@@ -16,10 +20,6 @@ public class Utils {
      */
     public static float lerp(float a, float b, float f) {
         return a * f + b * (1 - f);
-    }
-
-    public static float sign(float a) {
-        return a > 0 ? (a < 0 ? -1 : 0) : 1;
     }
 
 }

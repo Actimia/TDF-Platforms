@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="32" height="20" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32">
+  <image source="../gfx/tiles.png" trans="ff00ff" width="256" height="256"/>
+  <tile id="0">
+   <properties>
+    <property name="type" value="air"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="type" value="ground"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="type" value="ladder"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="type" value="drift"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="type" value="air"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="type" value="antigrav"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="type" value="ladder"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="type" value="ground"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="type" value="antigrav"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="type" value="oneway"/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="type" value="ground"/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="type" value="ground"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="background" width="32" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3DQQ0AAAwDofvXv98JGSSsmqqqbx5R5Cu4AAoAAA==
+  </data>
+ </layer>
+ <layer name="layer1" width="32" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NiYGBgGmDMOEB41H76Yq5R+wel/fRKX6P2j9pPD/tZcNgvRMB9xGJC+kWIMIOXhvYT4zdK7CfGfQNtPznpc7jYTwoGAE/c+pcACgAA
+  </data>
+ </layer>
+ <objectgroup name="objects" width="32" height="20">
+  <object name="spawn" x="160" y="416" width="32" height="32">
+   <properties>
+    <property name="type" value="spawn"/>
+   </properties>
+  </object>
+  <object name="hellomsg" x="96" y="352" width="160" height="96">
+   <properties>
+    <property name="msg" value="Welcome to TDF Platforms! Press A and D to move left and right."/>
+    <property name="type" value="message"/>
+   </properties>
+  </object>
+  <object name="jumpmsg" x="352" y="384" width="64" height="64">
+   <properties>
+    <property name="msg" value="Press space to jump across the chasm."/>
+    <property name="type" value="message"/>
+   </properties>
+  </object>
+  <object name="platformmsg" x="640" y="384" width="96" height="64">
+   <properties>
+    <property name="msg" value="Press S on top of these platforms to fall through them."/>
+    <property name="type" value="message"/>
+   </properties>
+  </object>
+  <object name="laddermsg" x="928" y="544" width="64" height="64">
+   <properties>
+    <property name="msg" value="Jump and catch the ladder and climb out of this hole!"/>
+    <property name="type" value="message"/>
+   </properties>
+  </object>
+  <object name="antigravmsg" x="896" y="384" width="96" height="64">
+   <properties>
+    <property name="msg" value="This anti-gravity beam will propel you upwards."/>
+    <property name="type" value="message"/>
+   </properties>
+  </object>
+  <object name="completemsg" x="64" y="32" width="160" height="96">
+   <properties>
+    <property name="msg" value="Well done! You have completed the tutorial! Head out the door to complete this level!"/>
+    <property name="type" value="message"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

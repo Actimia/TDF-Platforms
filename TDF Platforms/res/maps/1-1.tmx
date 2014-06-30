@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="80" height="20" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="tiles.tsx"/>
+ <layer name="background" width="80" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3QsQ0AAAjDsIqV///lDRAevEfpJA0AAAAAj9SChsv8Ay4YVtWhXwAZAAA=
+  </data>
+ </layer>
+ <layer name="layer1" width="80" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+WWwQrDMAiGk7JToYeFnvb+D7oVJoikNi46lR5+aEma6Ndfk1pKqSd6frSh9+N5YeZ7aw0QQ3Z+keLLyK9+YwRF5LcHYMXxi6Ks/gMtA8rKzyKfLP7TrF/NnLPw09xDM+dW5D62rO8ZfjgGjtFaxvqUVN7e4/hJ6veY/xrgpxVzBn6ae2j3LOC3I0U+f6OdmRn81/uvUm/ANz1+m3BdDX4W/dWrfvGeNO7RuozgQcpvVA/BeLvgF10Wdwdcf7/eT7zyvQu/K49zuf2TxWze2vxgnPa/Xj+UsI1Sv9QbbXKts3hp7Bb5edXvnfQGufpK2AAZAAA=
+  </data>
+ </layer>
+ <objectgroup name="objects" width="80" height="20">
+  <object name="spawn" x="1120" y="448" width="32" height="32">
+   <properties>
+    <property name="type" value="spawn"/>
+   </properties>
+  </object>
+  <object name="monster" x="1312" y="384" width="32" height="32">
+   <properties>
+    <property name="type" value="monster"/>
+   </properties>
+  </object>
+  <object name="spawnmsg" x="1088" y="416" width="96" height="64">
+   <properties>
+    <property name="msg" value="Welcome to TDF Platforms!"/>
+    <property name="type" value="message"/>
+   </properties>
+  </object>
+  <object name="multilinemsg" x="1408" y="352" width="96" height="64">
+   <properties>
+    <property name="msg" value="This is a multi-\nline message!"/>
+    <property name="type" value="message"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
