@@ -64,24 +64,23 @@ public class Player implements Entity {
         Tile tile = map.tileAt(bounds.getCenterX(), bounds.getMaxY());
         float xmove = 0;
         float ymove = 0;
-        boolean ladder = tile.getType() == TileType.LADDER;
 
         // resolve frame acceleration.
         // x axis
-        if (in.isKeyDown(Input.KEY_A)) {
+        if (in.isKeyDown(Input.KEY_LEFT)) {
             xmove--;
         }
-        if (in.isKeyDown(Input.KEY_D)) {
+        if (in.isKeyDown(Input.KEY_RIGHT)) {
             xmove++;
         }
         // y axis
-        if (ladder) {
+        if (tile.getType() == TileType.LADDER) {
             yvelo = 0;
             airborne = false;
-            if (in.isKeyDown(Input.KEY_W)) {
+            if (in.isKeyDown(Input.KEY_UP)) {
                 ymove--;
             }
-            if (in.isKeyDown(Input.KEY_S)) {
+            if (in.isKeyDown(Input.KEY_DOWN)) {
                 ymove++;
             }
             ymove = ymove * tile.terminalSpeed() * delta / 1000f;
